@@ -1,0 +1,407 @@
+openapi: 3.0.1
+info:
+  title: /
+  version: 0.1.0
+servers:
+- url: "{server}:{port}/"
+  variables:
+    server:
+      default: http://localhost
+    port:
+      default: "9096"
+paths:
+  /getLicense:
+    get:
+      summary: Retrieve license information
+      description: Gets the details of an existing license from the system
+      operationId: getGetlicense
+      responses:
+        "200":
+          description: Ok
+        "500":
+          description: InternalServerError
+  /updateLicense:
+    post:
+      summary: Update existing license
+      description: Modifies the details of an existing license in the system
+      operationId: postUpdatelicense
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: InternalServerError
+  /addLicense:
+    post:
+      summary: Create new license
+      description: Adds a new license to the system
+      operationId: postAddlicense
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: InternalServerError
+  /checkLicense/{licName}/{licKey}:
+    get:
+      summary: Validate license
+      description: Verifies if a license is valid using the license name and key
+      operationId: getChecklicenseLicnameLickey
+      parameters:
+      - name: licName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: licKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: Found unexpected output
+          content:
+            text/plain:
+              schema:
+                type: string
+  /requestLicense:
+    post:
+      summary: Submit license request
+      description: Creates a new license request for approval
+      operationId: postRequestlicense
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: InternalServerError
+  /approveLicense:
+    post:
+      summary: Approve license request
+      description: Approves a pending license request
+      operationId: postApprovelicense
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: InternalServerError
+  /rejectLicense:
+    post:
+      summary: Reject license request
+      description: Rejects a pending license request
+      operationId: postRejectlicense
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: InternalServerError
+  /getLicenseRequests:
+    get:
+      summary: Get all license requests
+      description: Retrieves a list of all pending license requests
+      operationId: getGetlicenserequests
+      responses:
+        "200":
+          description: Ok
+        "500":
+          description: InternalServerError
+  /getLibrary:
+    get:
+      summary: Get library details
+      description: Retrieves information about a specific library
+      operationId: getGetlibrary
+      responses:
+        "200":
+          description: Ok
+        "500":
+          description: InternalServerError
+  /getLibraries:
+    get:
+      summary: Search libraries
+      description: Retrieves a paginated list of libraries matching the search query
+      operationId: getGetlibraries
+      parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+        "500":
+          description: InternalServerError
+  /updateLibrary:
+    post:
+      summary: Update library
+      description: Modifies the details of an existing library
+      operationId: postUpdatelibrary
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "500":
+          description: Found unexpected output
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          description: BadRequest
+  /addLibrary:
+    post:
+      summary: Add new library
+      description: Creates a new library in the system
+      operationId: postAddlibrary
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: Found unexpected output
+          content:
+            text/plain:
+              schema:
+                type: string
+  /getPackstatus:
+    get:
+      summary: Get pack status
+      description: Retrieves the current status of a package
+      operationId: getGetpackstatus
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: InternalServerError
+  /getBlobData:
+    get:
+      summary: Get blob data
+      description: Retrieves binary large object (BLOB) data
+      operationId: getGetblobdata
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: InternalServerError
+  /deletePack/{packName}:
+    post:
+      summary: Delete package
+      description: Removes a specified package from the system
+      operationId: postDeletepackPackname
+      parameters:
+      - name: packName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: Found unexpected output
+          content:
+            text/plain:
+              schema:
+                type: string
+  /getDownloadingText/{packName}:
+    get:
+      summary: Get download status
+      description: Retrieves the download progress text for a specific package
+      operationId: getGetdownloadingtextPackname
+      parameters:
+      - name: packName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "400":
+          description: BadRequest
+        default:
+          description: Any Response
+          content:
+            '*/*':
+              schema:
+                description: Any type of entity body
+  /getBlobFile/{fileName}:
+    get:
+      summary: Download blob file
+      description: Downloads a specific blob file by its filename
+      operationId: getGetblobfileFilename
+      parameters:
+      - name: fileName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "400":
+          description: BadRequest
+        default:
+          description: Any Response
+          content:
+            '*/*':
+              schema:
+                description: Any type of entity body
+  /gettempdata/{packName}:
+    get:
+      summary: Get temporary data
+      description: Retrieves temporary data associated with a specific package
+      operationId: getGettempdataPackname
+      parameters:
+      - name: packName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+  /getallLibraryRequests:
+    get:
+      summary: Get all library requests
+      description: Retrieves a list of all pending library requests
+      operationId: getGetalllibraryrequests
+      responses:
+        "200":
+          description: Ok
+  /addLibraryRequest/{packName}:
+    post:
+      summary: Submit library request
+      description: Creates a new library request for a specific package
+      operationId: postAddlibraryrequestPackname
+      parameters:
+      - name: packName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "500":
+          description: InternalServerError
+        "400":
+          description: BadRequest
+  /addLibraryLicense/{packName}:
+    post:
+      summary: Add library license
+      description: Associates a license with a specific library package
+      operationId: postAddlibrarylicensePackname
+      parameters:
+      - name: packName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Ok
+        "500":
+          description: InternalServerError
+  /checkPack/{packName}:
+    get:
+      summary: Verify package
+      description: Checks the validity and status of a specific package
+      operationId: getCheckpackPackname
+      parameters:
+      - name: packName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+        "400":
+          description: BadRequest
+        "500":
+          description: Found unexpected output
+          content:
+            text/plain:
+              schema:
+                type: string
+  /receiver/{packName}:
+    post:
+      summary: Receive package data
+      description: Endpoint for receiving package data uploads
+      operationId: postReceiverPackname
+      parameters:
+      - name: packName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              description: Any type of entity body
+      responses:
+        "500":
+          description: Found unexpected output
+          content:
+            text/plain:
+              schema:
+                type: string
+components: {}

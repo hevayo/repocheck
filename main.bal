@@ -1,6 +1,19 @@
+import ballerina/http;
 
-import ballerina/io;
+listener http:Listener httpDefaultListener = http:getDefaultListener();
 
-public function main() {
-    io:println("Hello, World!");
+service /sample on httpDefaultListener {
+    function init() returns error? {
+        do {
+        } on fail error err {
+            // handle error
+        }
+    }
+
+    resource function get greeting() returns json|http:InternalServerError {
+        do {
+        } on fail error err {
+            // handle error
+        }
+    }
 }

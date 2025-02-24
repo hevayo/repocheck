@@ -1,8 +1,6 @@
-
-        [package]
-org = "sampletest"
-name = "repocheck"
+[package]
+org = "wso2"
+name = "myservice"
 version = "0.1.0"
 
 bi = true
-        
