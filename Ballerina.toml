@@ -1,0 +1,8 @@
+
+        [package]
+org = "sampletest"
+name = "repocheck"
+version = "0.1.0"
+
+bi = true
+        
